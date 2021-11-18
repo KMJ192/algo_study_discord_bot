@@ -1,2 +1,1 @@
-release: export DISCORD_TOKEN=******
-worker: cargo run
+worker: ./target/release/algo_study_discord_bot
