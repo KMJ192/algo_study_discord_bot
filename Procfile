@@ -1,2 +1,2 @@
-release: export DISCORD_TOKEN=OTEwMTg3NDQ2NTU2Mjk1MjY5.YZPMHQ.O20TeCpLytMhSEQ_YCUDG86ePEU
+release: export DISCORD_TOKEN=******
 worker: cargo run
