@@ -1,1 +1,2 @@
-web: ./target/release/algo_study_discord_bot
+release: export DISCORD_TOKEN=OTEwMTg3NDQ2NTU2Mjk1MjY5.YZPMHQ.O20TeCpLytMhSEQ_YCUDG86ePEU
+worker: cargo run
