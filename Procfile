@@ -1,1 +1,1 @@
-web: ./target/release/algo_study_discord_bot
+worker: ./target/release/algo_study_discord_bot
