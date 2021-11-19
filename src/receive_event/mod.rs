@@ -5,12 +5,12 @@ use serenity::{
 };
 
 const REQ_COMMENDS: &str = "!command";
-const RES_COMMENDS: &str = "!Matching !FeedbackTemplate !InterviewTemplate";
+const RES_COMMENDS: &str = "!matching !ft(Feedback Template) !it(Interview Template)";
 
 const REQ_MATCHING: &str = "!matching";
 const RES_MATCHING: &str = "준비중입니다.";
 
-const REQ_FD_TEMPLATE: &str = "!feedbacktemplate";
+const REQ_FD_TEMPLATE: &str = "!ft";
 const RES_FD_TEMPLATE: &str = "
 ========================================
 < Feedback Template >
@@ -22,7 +22,7 @@ const RES_FD_TEMPLATE: &str = "
 ========================================
 ";
 
-const REQ_INTERVIEW_TEMPLATE: &str = "!interviewtemplate";
+const REQ_INTERVIEW_TEMPLATE: &str = "!it";
 const RES_INTERVIEW_TEMPLATE: &str = "
 ========================================
 <Interview Template>
