@@ -53,10 +53,13 @@ const RES_INTERVIEW_TEMPLATE: &str = "
 ========================================
 ";
 
+const REQ_GIT_ADD: &str = "!git";
+const RES_GET_ADD: &str = "https://github.com/KMJ192/algo_study_discord_bot";
+
 pub struct Handler;
 
 fn string_matching(str1: &str, str2: &str) -> bool {
-  if str1.to_lowercase() == str2 {
+  if str1 == str2 {
     return true;
   }
   false
@@ -65,7 +68,7 @@ fn string_matching(str1: &str, str2: &str) -> bool {
 #[async_trait]
 impl EventHandler for Handler {
   async fn message(&self, ctx: Context, msg: Message) {
-    let input_msg = msg.content;
+    let input_msg = msg.content.to_lowercase();
     if string_matching(&input_msg, REQ_COMMENDS) {
       if let Err(err) = msg.channel_id.say(&ctx.http, RES_COMMENDS).await {
         println!("Error sending message: {:?}", err);
@@ -86,6 +89,10 @@ impl EventHandler for Handler {
       let members = String::from(&input_msg[10..]);
       let result = run(members);
       if let Err(err) = msg.channel_id.say(&ctx.http, &result).await {
+        println!("Error sending message: {:?}", err);
+      }
+    } else if string_matching(&input_msg, REQ_GIT_ADD) {
+      if let Err(err) = msg.channel_id.say(&ctx.http, RES_GET_ADD).await {
         println!("Error sending message: {:?}", err);
       }
     }
