@@ -15,16 +15,32 @@ pub mod random_matching;
 pub mod receive_event;
 use receive_event::*;
 
+const INFO: &str = "
+알고리즘 스터디 디스코드 봇 프로젝트
+
+v0.1.0
+
+input command => !info !matching !ft(Feedback Template) !it(Interview Template)
+
+dev stack
+- rust
+- tokio
+- serenity
+- heroku (deployment)
+
+git address : https://github.com/KMJ192/algo_study_discord_bot
+";
+
 #[command]
 async fn about(ctx: &Context, msg: &Message) -> CommandResult {
-    msg.channel_id.say(&ctx.http, "A simple test bot").await?;
+    msg.channel_id.say(&ctx.http, INFO).await?;
 
     Ok(())
 }
 
 #[command]
 async fn ping(ctx: &Context, msg: &Message) -> CommandResult {
-    msg.channel_id.say(&ctx.http, "pong!").await?;
+    msg.channel_id.say(&ctx.http, "test message pong!").await?;
 
     Ok(())
 }
@@ -39,8 +55,8 @@ async fn main() {
   let token = env::var("DISCORD_TOKEN").expect("Expected a token in the environment");
 
   let framework = StandardFramework::new()
-                  .configure(|c| c.prefix("~"))
-                  .group(&GENERAL_GROUP);
+    .configure(|c| c.prefix("!"))
+    .group(&GENERAL_GROUP);
 
   let mut client = Client::builder(token)
     .event_handler(Handler)

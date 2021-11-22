@@ -124,6 +124,26 @@ fn output_str(result: HashMap<String, HashSet<String>>) -> String {
 
 pub fn run(members: String) -> String {
   let (arr, pair_num) = make_array(members);
-  let result = matching(arr, pair_num);
+  if arr.len() < pair_num { return String::from("잘못된 입력입니다. (입력 된 숫자가 매칭 유저수보다 큽니다.)"); }
+
+  let mut result = HashMap::new();
+  let mut s = false;
+  
+  // retry
+  for i in 0..100 {
+    let tmp = arr.clone();
+    result = matching(tmp, pair_num);
+    s = true;
+
+    for r in &result {
+      if r.1.len() < pair_num {
+        s = false;
+        break;
+      }
+    }
+
+    if s == true { break; }
+  }
+  
   output_str(result)
 }

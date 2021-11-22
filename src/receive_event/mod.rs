@@ -7,7 +7,7 @@ use serenity::{
 use super::random_matching::run;
 
 const REQ_COMMENDS: &str = "!command";
-const RES_COMMENDS: &str = "!matching !ft(Feedback Template) !it(Interview Template)";
+const RES_COMMENDS: &str = "!info !matching !ft(Feedback Template) !it(Interview Template)";
 
 const REQ_MATCHING: &str = "!matching";
 const RES_MATCHING: &str = "
@@ -53,9 +53,6 @@ const RES_INTERVIEW_TEMPLATE: &str = "
 ========================================
 ";
 
-const REQ_GIT_ADD: &str = "!git";
-const RES_GET_ADD: &str = "https://github.com/KMJ192/algo_study_discord_bot";
-
 pub struct Handler;
 
 fn string_matching(str1: &str, str2: &str) -> bool {
@@ -89,10 +86,6 @@ impl EventHandler for Handler {
       let members = String::from(&input_msg[10..]);
       let result = run(members);
       if let Err(err) = msg.channel_id.say(&ctx.http, &result).await {
-        println!("Error sending message: {:?}", err);
-      }
-    } else if string_matching(&input_msg, REQ_GIT_ADD) {
-      if let Err(err) = msg.channel_id.say(&ctx.http, RES_GET_ADD).await {
         println!("Error sending message: {:?}", err);
       }
     }
