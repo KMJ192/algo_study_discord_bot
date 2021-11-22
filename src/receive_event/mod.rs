@@ -1,14 +1,20 @@
 use serenity::{
   async_trait,
-  model::{channel::Message, gateway::Ready},
+  model::{channel::Message, gateway::Ready, guild::ThreadMember, event::{ThreadListSyncEvent, ThreadMembersUpdateEvent}},
   prelude::*,
 };
+
+use super::random_matching::run;
 
 const REQ_COMMENDS: &str = "!command";
 const RES_COMMENDS: &str = "!matching !ft(Feedback Template) !it(Interview Template)";
 
 const REQ_MATCHING: &str = "!matching";
-const RES_MATCHING: &str = "준비중입니다.";
+const RES_MATCHING: &str = "
+  입력방법
+  !matching 멤버이름(이름마다 space로 구분) 매칭숫자
+  ex) !matching name1 name2 name3 name4 name5 name6 2
+";
 
 const REQ_FD_TEMPLATE: &str = "!ft";
 const RES_FD_TEMPLATE: &str = "
@@ -76,7 +82,29 @@ impl EventHandler for Handler {
       if let Err(err) = msg.channel_id.say(&ctx.http, RES_MATCHING).await {
         println!("Error sending message: {:?}", err);
       }
-    } 
+    } else if input_msg.len() > 9 && string_matching(&String::from(&input_msg[0..9]), REQ_MATCHING) {
+      let members = String::from(&input_msg[10..]);
+      let result = run(members);
+      if let Err(err) = msg.channel_id.say(&ctx.http, &result).await {
+        println!("Error sending message: {:?}", err);
+      }
+    }
+  }
+
+  async fn thread_member_update(&self, _ctx: Context, _thread_member: ThreadMember) {
+    println!("{:?}", _thread_member);
+  }
+
+  async fn thread_members_update(
+    &self,
+    _ctx: Context,
+    _thread_members_update: ThreadMembersUpdateEvent,
+  ) {
+    println!("{:?}", _thread_members_update);
+  }
+
+  async fn thread_list_sync(&self, _ctx: Context, _thread_list_sync: ThreadListSyncEvent) {
+    println!("{:?}", _thread_list_sync);
   }
 
   async fn ready(&self, _: Context, ready: Ready) {
