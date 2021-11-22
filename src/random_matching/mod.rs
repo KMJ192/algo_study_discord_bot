@@ -91,8 +91,18 @@ fn make_array(members: String) -> (Vec<String>, usize) {
   for s in arr {
     re.push(String::from(s));
   }
-  let size = re[re.len() - 1].parse::<usize>().unwrap();
-  re.pop();
+  let cast = re[re.len() - 1].parse::<usize>();
+
+  let mut size = 2;
+
+  match cast {
+    Ok(r) => {
+      size = r;
+      re.pop();
+    },
+    Err(_) => size = 2,
+  };
+
   (re, size)
 }
 
