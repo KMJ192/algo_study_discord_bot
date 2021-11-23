@@ -93,6 +93,7 @@ fn make_array(members: String) -> (Vec<String>, usize) {
   }
   let cast = re[re.len() - 1].parse::<usize>();
 
+  // default size = 2;
   let mut size = 2;
 
   match cast {
@@ -127,13 +128,12 @@ pub fn run(members: String) -> String {
   if arr.len() < pair_num { return String::from("잘못된 입력입니다. (입력 된 숫자가 매칭 유저수보다 큽니다.)"); }
 
   let mut result = HashMap::new();
-  let mut s = false;
   
   // retry
-  for i in 0..100 {
+  for _ in 0..100 {
     let tmp = arr.clone();
     result = matching(tmp, pair_num);
-    s = true;
+    let mut s = true;
 
     for r in &result {
       if r.1.len() < pair_num {
@@ -144,6 +144,9 @@ pub fn run(members: String) -> String {
 
     if s == true { break; }
   }
-  
-  output_str(result)
+  let r = output_str(result);
+  if r == "" {
+    return String::from("ERROR-S000");
+  }
+  r
 }
