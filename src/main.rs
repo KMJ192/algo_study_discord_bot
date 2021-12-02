@@ -13,26 +13,13 @@ use serenity::framework::standard::{
 
 pub mod random_matching;
 pub mod receive_event;
+pub mod commands;
+
+use commands::INFO;
 use receive_event::*;
 
-const INFO: &str = "
-알고리즘 스터디 디스코드 봇 프로젝트
-
-v0.1.0
-
-input command => !info !matching !ft(Feedback Template) !it(Interview Template)
-
-dev stack
-- rust
-- tokio
-- serenity
-- heroku (deployment)
-
-git address : https://github.com/KMJ192/algo_study_discord_bot
-";
-
 #[command]
-async fn about(ctx: &Context, msg: &Message) -> CommandResult {
+async fn info(ctx: &Context, msg: &Message) -> CommandResult {
     msg.channel_id.say(&ctx.http, INFO).await?;
 
     Ok(())
@@ -47,7 +34,7 @@ async fn ping(ctx: &Context, msg: &Message) -> CommandResult {
 
 
 #[group]
-#[commands(about, ping)]
+#[commands(info, ping)]
 struct General;
 
 #[tokio::main]

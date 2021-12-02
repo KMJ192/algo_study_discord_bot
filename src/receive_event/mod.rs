@@ -4,54 +4,8 @@ use serenity::{
   prelude::*,
 };
 
+use super::commands::*;
 use super::random_matching::run;
-
-const REQ_COMMENDS: &str = "!command";
-const RES_COMMENDS: &str = "!info !matching !ft(Feedback Template) !it(Interview Template)";
-
-const REQ_MATCHING: &str = "!matching";
-const RES_MATCHING: &str = "
-  입력방법
-  !matching 멤버이름(이름마다 space로 구분) 매칭숫자
-  ex) !matching name1 name2 name3 name4 name5 name6 2
-";
-
-const REQ_FD_TEMPLATE: &str = "!ft";
-const RES_FD_TEMPLATE: &str = "
-========================================
-< Feedback Template >
-0. Question/Solver : 문제/푼 사람
-1. Problem Solving: 문제 풀었냐 못 풀었냐
-2. Coding: 코드 퀄리티(가독성/확장성?/버그FREE)
-3. Communication: 의사 전달력 - 얼마나 자기 생각을 말로 잘 표현해내었냐
-4. 잘한 것/ 좀 더 노력해야되는 부분 - 각각 최소 2가지씩
-========================================
-";
-
-const REQ_INTERVIEW_TEMPLATE: &str = "!it";
-const RES_INTERVIEW_TEMPLATE: &str = "
-========================================
-<Interview Template>
-1. Input
-
-2. Output
-
-3. Constraints
-
-4. Edge Cases
-
-5. Data Structure
-
-6. Algorithm
-
-7. Time Complexity
-
-8. Space Complexity
-
-9. Solution
-
-========================================
-";
 
 pub struct Handler;
 
@@ -86,6 +40,10 @@ impl EventHandler for Handler {
       let members = String::from(&input_msg[10..]);
       let result = run(members);
       if let Err(err) = msg.channel_id.say(&ctx.http, &result).await {
+        println!("Error sending message: {:?}", err);
+      }
+    } else if string_matching(&input_msg, REQ_KMP_CODE) {
+      if let Err(err) = msg.channel_id.say(&ctx.http, RES_KMP_CODE).await {
         println!("Error sending message: {:?}", err);
       }
     }
