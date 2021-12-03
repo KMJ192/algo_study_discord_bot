@@ -1,11 +1,79 @@
 pub const REQ_COMMENDS: &str = "!commands";
-pub const RES_COMMENDS: &str = "!info !matching !ft(Feedback Template) !it(Interview Template) !kmp_code";
+pub const RES_COMMENDS: &str = "!info !matching !ft(Feedback Template) !it(Interview Template) !kmp_code !trie_run !trie_code";
 
 pub const REQ_MATCHING: &str = "!matching";
 pub const RES_MATCHING: &str = "
-  입력방법
-  !matching 멤버이름(이름마다 space로 구분) 매칭숫자
+  How to input
+  !matching MemberName(Divide into space) matching count
   ex) !matching name1 name2 name3 name4 name5 name6 2
+";
+
+pub const REQ_TRIE_RUN: &str = "!trie_run";
+pub const RES_TRIE_RUN: &str = "
+  How to input
+  !trie_run InputString(Divide into space)
+  ex) !trie_run app apple as sc
+";
+
+pub const REQ_TRIE_CODE: &str = "!trie_code";
+pub const RES_TRIE_CODE: &str = "
+```ts
+// ts 코드 (언어별 코드는 추후 업데이트)
+export class TrieNode {
+  public isWord: boolean;
+
+  public word: string;
+
+  public next: {
+    [key: string]: TrieNode;
+  };
+
+  constructor() {
+    this.isWord = false;
+    this.next = {};
+    this.word = '';
+  }
+}
+
+export class TrieDataStructure {
+  private root: TrieNode;
+
+  constructor() {
+    this.root = new TrieNode();
+  }
+
+  public insert(word: string) {
+    let curNode: TrieNode = this.root;
+    for (let i: number = 0; i < word.length; i++) {
+      const c: string = word[i];
+      if (!curNode.next[c]) {
+        curNode.next[c] = new TrieNode();
+      }
+      curNode = curNode.next[c];
+    }
+    curNode.word = word;
+    curNode.isWord = true;
+  }
+
+  public search(word: string): boolean {
+    let curNode: TrieNode = this.root;
+    for (let i: number = 0; i < word.length; i++) {
+      curNode = curNode.next[word.charAt(i)];
+      if (!curNode) return false;
+    }
+    return curNode.isWord;
+  }
+
+  public startsWith(prefix: string): boolean {
+    let curNode = this.root;
+    for (let i: number = 0; i < prefix.length; i++) {
+      curNode = curNode.next[prefix.charAt(i)];
+      if (!curNode) return false;
+    }
+    return true;
+  }
+}
+```
 ";
 
 pub const REQ_KMP_CODE: &str = "!kmp_code";
@@ -98,14 +166,14 @@ pub const RES_INTERVIEW_TEMPLATE: &str = "
 
 pub const INFO: &str = "
 Algorithm study discord bot project v0.0.1
-프로젝트 목표
-  - algorithm 스터디 페어프로그래밍 matching 자동화
-  - algorithm 실행 결과 시각화 (text 형태로 출력)
-  - algorithm / Data Structure 코드 제공 자동화
-  - 언어별 표준 라이브러리 메서드 사용법, 예시 제공
+Goal of project
+  - Automation of pair programming matching.
+  - Visualization of algorithm run result. (text type display)
+  - Provision algorithm code / data structure code.
+  - Provision sandard library method, how to use.
 
 input command =>
-!info !matching !ft(Feedback Template) !it(Interview Template) !kmp_code
+!info !matching !ft(Feedback Template) !it(Interview Template) !kmp_code !trie_run !trie_code
 
 dev stack
 - rust

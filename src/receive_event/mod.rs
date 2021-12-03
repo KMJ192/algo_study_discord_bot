@@ -1,11 +1,12 @@
 use serenity::{
   async_trait,
-  model::{channel::Message, gateway::Ready, guild::ThreadMember, event::{ThreadListSyncEvent, ThreadMembersUpdateEvent}},
+  model::{channel::{Message, Attachment}, gateway::Ready, guild::ThreadMember, event::{ThreadListSyncEvent, ThreadMembersUpdateEvent}},
   prelude::*,
 };
 
 use super::commands::*;
 use super::random_matching::run;
+use super::ds::trie::build_trie;
 
 pub struct Handler;
 
@@ -44,6 +45,19 @@ impl EventHandler for Handler {
       }
     } else if string_matching(&input_msg, REQ_KMP_CODE) {
       if let Err(err) = msg.channel_id.say(&ctx.http, RES_KMP_CODE).await {
+        println!("Error sending message: {:?}", err);
+      }
+    } else if string_matching(&input_msg, REQ_TRIE_RUN) {
+      if let Err(err) = msg.channel_id.say(&ctx.http, RES_TRIE_RUN).await {
+        println!("Error sending message: {:?}", err);
+      }
+    } else if input_msg.len() > 9 && string_matching(&String::from(&input_msg[0..9]), REQ_TRIE_RUN) {
+      let result = build_trie(&input_msg);
+      if let Err(err) = msg.channel_id.say(&ctx.http, &result).await {
+        println!("Error sending message: {:?}", err);
+      }
+    } else if string_matching(&input_msg, REQ_TRIE_CODE) {
+      if let Err(err) = msg.channel_id.say(&ctx.http, RES_TRIE_CODE).await {
         println!("Error sending message: {:?}", err);
       }
     }

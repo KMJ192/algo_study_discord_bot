@@ -14,6 +14,7 @@ use serenity::framework::standard::{
 pub mod random_matching;
 pub mod receive_event;
 pub mod commands;
+pub mod ds;
 
 use commands::INFO;
 use receive_event::*;
