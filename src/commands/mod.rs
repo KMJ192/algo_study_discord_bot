@@ -1,6 +1,23 @@
 pub const REQ_COMMENDS: &str = "!commands";
 pub const RES_COMMENDS: &str = "!info !matching !ft(Feedback Template) !it(Interview Template) !kmp_code !trie_run !trie_code";
 
+pub const REQ_DP_EXPLANATION: &str = "!dp_expl";
+pub const RES_DP_EXPLANATION: &str = "
+dp => 아주 작은 단위(sub problem)을 풀어서 큰 문제를 푸는 것
+```
+Math.max(dp[i - 1][c], dp[i][c - cw] +cv) -> formulation
+cv(currentValue), cw(currentWeight)
+
+      | dp table
+cv,cw | 0 1 2 3 4 5 6 7 8 9 10  
+[0,0] | 0 0 0 0 0 0 0 0 0 0 0
+[1,2] | 0 0 1 1 1 1 1 1 1 1 1
+[4,3] | 0 0 1 4 4 5 5 5 5 5 5
+[5,6] | 0 0 1 4 4 5 5 5 6 9 9
+[6,7] | 0 0 1 4 4 5 5 6 6 9 10
+```
+";
+
 pub const REQ_MATCHING: &str = "!matching";
 pub const RES_MATCHING: &str = "
   How to input
