@@ -1,20 +1,21 @@
 pub const REQ_COMMENDS: &str = "!commands";
 pub const RES_COMMENDS: &str = "!info !matching !ft(Feedback Template) !it(Interview Template) !kmp_code !trie_run !trie_code";
 
-pub const REQ_DP_EXPLANATION: &str = "!dp_expl";
-pub const RES_DP_EXPLANATION: &str = "
-dp => 아주 작은 단위(sub problem)을 풀어서 큰 문제를 푸는 것
+pub const REQ_KNAPSACK: &str = "!knapsack";
+pub const RES_KNAPSACK: &str = "
+knapsack 알고리즘을 실행합니다.
+데이터 입력 방식
+JSON 형태로 입력합니다.
+capacity -> integer type
+data -> string type
+(data의 value와 weight는 space로 구분, 각 data는 '|' 로 구분)
+ex)
+!knapsack
 ```
-Math.max(dp[i - 1][c], dp[i][c - cw] +cv) -> formulation
-cv(currentValue), cw(currentWeight)
-
-      | dp table
-cv,cw | 0 1 2 3 4 5 6 7 8 9 10  
-[0,0] | 0 0 0 0 0 0 0 0 0 0 0
-[1,2] | 0 0 1 1 1 1 1 1 1 1 1
-[4,3] | 0 0 1 4 4 5 5 5 5 5 5
-[5,6] | 0 0 1 4 4 5 5 5 6 9 9
-[6,7] | 0 0 1 4 4 5 5 6 6 9 10
+{
+  \"capacity\": 5,
+  \"data\": \"3 2 | 4 3 | 5 4 | 6 5\"
+}
 ```
 ";
 

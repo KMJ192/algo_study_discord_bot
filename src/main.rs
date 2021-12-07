@@ -15,6 +15,7 @@ pub mod random_matching;
 pub mod receive_event;
 pub mod commands;
 pub mod ds;
+pub mod algorithm;
 
 use commands::INFO;
 use receive_event::*;

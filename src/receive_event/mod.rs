@@ -7,6 +7,7 @@ use serenity::{
 use super::commands::*;
 use super::random_matching::run;
 use super::ds::trie::build_trie;
+use super::algorithm::knapsack::knapsack_run;
 
 pub struct Handler;
 
@@ -66,8 +67,14 @@ impl EventHandler for Handler {
       if let Err(err) = msg.channel_id.say(&ctx.http, RES_TRIE_CODE).await {
         println!("Error sending message: {:?}", err);
       }
-    } else if string_matching(&input_msg, REQ_DP_EXPLANATION) {
-      if let Err(err) = msg.channel_id.say(&ctx.http, RES_DP_EXPLANATION).await {
+    } else if string_matching(&input_msg, REQ_KNAPSACK) {
+      if let Err(err) = msg.channel_id.say(&ctx.http, RES_KNAPSACK).await {
+        println!("Error sending message: {:?}", err);
+      }
+    } else if input_msg.len() > 9 && string_matching(&String::from(&input_msg[0..9]), REQ_KNAPSACK) {
+      let input_data = String::from(&input_msg[10..]);
+      let result = knapsack_run(String::from(input_data));
+      if let Err(err) = msg.channel_id.say(&ctx.http, &result).await {
         println!("Error sending message: {:?}", err);
       }
     }
