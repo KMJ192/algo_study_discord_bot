@@ -1,97 +1,11 @@
 pub const REQ_COMMENDS: &str = "!commands";
 pub const RES_COMMENDS: &str = "!info !matching !ft(Feedback Template) !it(Interview Template) !kmp_code !trie_run !trie_code";
 
-pub const REQ_KNAPSACK: &str = "!knapsack";
-pub const RES_KNAPSACK: &str = "
-knapsack 알고리즘을 실행합니다.
-데이터 입력 방식
-JSON 형태로 입력합니다.
-capacity -> integer type
-data -> string type
-(data의 value와 weight는 space로 구분, 각 data는 '|' 로 구분)
-ex)
-!knapsack
-```
-{
-  \"capacity\": 5,
-  \"data\": \"3 2 | 4 3 | 5 4 | 6 5\"
-}
-```
-";
-
 pub const REQ_MATCHING: &str = "!matching";
 pub const RES_MATCHING: &str = "
   How to input
   !matching MemberName(Divide into space) matching count
   ex) !matching name1 name2 name3 name4 name5 name6 2
-";
-
-pub const REQ_TRIE_RUN: &str = "!trie_run";
-pub const RES_TRIE_RUN: &str = "
-  How to input
-  !trie_run InputString(Divide into space)
-  ex) !trie_run app apple as sc
-";
-
-pub const REQ_TRIE_CODE: &str = "!trie_code";
-pub const RES_TRIE_CODE: &str = "
-```ts
-// ts 코드 (언어별 코드는 추후 업데이트)
-export class TrieNode {
-  public isWord: boolean;
-
-  public word: string;
-
-  public next: {
-    [key: string]: TrieNode;
-  };
-
-  constructor() {
-    this.isWord = false;
-    this.next = {};
-    this.word = '';
-  }
-}
-
-export class TrieDataStructure {
-  private root: TrieNode;
-
-  constructor() {
-    this.root = new TrieNode();
-  }
-
-  public insert(word: string) {
-    let curNode: TrieNode = this.root;
-    for (let i: number = 0; i < word.length; i++) {
-      const c: string = word[i];
-      if (!curNode.next[c]) {
-        curNode.next[c] = new TrieNode();
-      }
-      curNode = curNode.next[c];
-    }
-    curNode.word = word;
-    curNode.isWord = true;
-  }
-
-  public search(word: string): boolean {
-    let curNode: TrieNode = this.root;
-    for (let i: number = 0; i < word.length; i++) {
-      curNode = curNode.next[word.charAt(i)];
-      if (!curNode) return false;
-    }
-    return curNode.isWord;
-  }
-
-  public startsWith(prefix: string): boolean {
-    let curNode = this.root;
-    for (let i: number = 0; i < prefix.length; i++) {
-      curNode = curNode.next[prefix.charAt(i)];
-      if (!curNode) return false;
-    }
-    return true;
-  }
-}
-```
 ";
 
 pub const REQ_KMP_CODE: &str = "!kmp_code";

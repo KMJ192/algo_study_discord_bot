@@ -5,9 +5,6 @@ use serenity::{
 };
 
 use super::commands::*;
-use super::random_matching::run;
-use super::ds::trie::build_trie;
-use super::algorithm::knapsack::knapsack_run;
 
 pub struct Handler;
 
@@ -40,41 +37,8 @@ impl EventHandler for Handler {
       if let Err(err) = msg.channel_id.say(&ctx.http, RES_FD_TEMPLATE).await {
         println!("Error sending message: {:?}", err);
       }
-    } else if string_matching(&input_msg, REQ_MATCHING) {
-      if let Err(err) = msg.channel_id.say(&ctx.http, RES_MATCHING).await {
-        println!("Error sending message: {:?}", err);
-      }
-    } else if input_msg.len() > 9 && string_matching(&String::from(&input_msg[0..9]), REQ_MATCHING) {
-      let members = String::from(&input_msg[10..]);
-      let result = run(members);
-      if let Err(err) = msg.channel_id.say(&ctx.http, &result).await {
-        println!("Error sending message: {:?}", err);
-      }
     } else if string_matching(&input_msg, REQ_KMP_CODE) {
       if let Err(err) = msg.channel_id.say(&ctx.http, RES_KMP_CODE).await {
-        println!("Error sending message: {:?}", err);
-      }
-    } else if string_matching(&input_msg, REQ_TRIE_RUN) {
-      if let Err(err) = msg.channel_id.say(&ctx.http, RES_TRIE_RUN).await {
-        println!("Error sending message: {:?}", err);
-      }
-    } else if input_msg.len() > 9 && string_matching(&String::from(&input_msg[0..9]), REQ_TRIE_RUN) {
-      let result = build_trie(&input_msg);
-      if let Err(err) = msg.channel_id.say(&ctx.http, &result).await {
-        println!("Error sending message: {:?}", err);
-      }
-    } else if string_matching(&input_msg, REQ_TRIE_CODE) {
-      if let Err(err) = msg.channel_id.say(&ctx.http, RES_TRIE_CODE).await {
-        println!("Error sending message: {:?}", err);
-      }
-    } else if string_matching(&input_msg, REQ_KNAPSACK) {
-      if let Err(err) = msg.channel_id.say(&ctx.http, RES_KNAPSACK).await {
-        println!("Error sending message: {:?}", err);
-      }
-    } else if input_msg.len() > 9 && string_matching(&String::from(&input_msg[0..9]), REQ_KNAPSACK) {
-      let input_data = String::from(&input_msg[10..]);
-      let result = knapsack_run(String::from(input_data));
-      if let Err(err) = msg.channel_id.say(&ctx.http, &result).await {
         println!("Error sending message: {:?}", err);
       }
     }

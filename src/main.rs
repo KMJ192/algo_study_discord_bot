@@ -34,6 +34,9 @@ async fn ping(ctx: &Context, msg: &Message) -> CommandResult {
     Ok(())
 }
 
+use random_matching::MATCHING_GROUP;
+use ds::trie::TRIE_GROUP;
+use algorithm::knapsack::KNAPSACK_GROUP;
 
 #[group]
 #[commands(info, ping)]
@@ -45,7 +48,10 @@ async fn main() {
 
   let framework = StandardFramework::new()
     .configure(|c| c.prefix("!"))
-    .group(&GENERAL_GROUP);
+    .group(&GENERAL_GROUP)
+    .group(&MATCHING_GROUP)
+    .group(&TRIE_GROUP)
+    .group(&KNAPSACK_GROUP);
 
   let mut client = Client::builder(token)
     .event_handler(Handler)
