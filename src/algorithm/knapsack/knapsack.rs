@@ -1,4 +1,15 @@
+use serenity::client::Context;
+use serenity::model::channel::Message;
+use serenity::framework::standard::{CommandResult, macros::{group, command}};
 use std::cmp::max;
+
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Deserialize, Serialize)]
+struct InputType {
+  capacity: i32,
+  data: String,
+}
 
 #[derive(Debug)]
 struct KnapsackProblem {
@@ -66,19 +77,15 @@ impl KnapsackProblem {
     self.make_table();
     self.result = self.dp_table[self.dp_table.len() - 1][self.capacity as usize];
     self.back_tracking();
-    format!("[{}, {:?}]", self.result, self.item)
+
+    let mut dp_array = String::new();
+    for i in 0..self.dp_table.len() {
+      let tmp = format!("{:?}\n", self.dp_table[i]);
+      dp_array.push_str(&tmp);
+    }
+    format!("```{}```[{}, {:?}]", dp_array, self.result, self.item)
   }
 }
-
-use serde::{Deserialize, Serialize};
-
-#[derive(Debug, Deserialize, Serialize)]
-struct InputType {
-  capacity: i32,
-  data: String,
-}
-
-// use serde_json::Value;
 
 fn confirm_data (input_data: String) -> (bool, i32, Vec<Vec<i32>>) {
   let v = serde_json::from_str(&input_data);
@@ -117,7 +124,7 @@ fn confirm_data (input_data: String) -> (bool, i32, Vec<Vec<i32>>) {
   (true, capacity, items)
 }
 
-pub fn knapsack_run(input_data: String) -> String {
+fn knapsack_run(input_data: String) -> String {
   let data = input_data.replace("```\n", "").replace("\n```", "");
   let data_parsing = confirm_data(data);
   if data_parsing.0 == false {
@@ -128,3 +135,37 @@ pub fn knapsack_run(input_data: String) -> String {
   let mut knapsack_problem = KnapsackProblem::new(capacity, items);
   knapsack_problem.algorithm_run()
 }
+
+#[command]
+async fn knapsack(ctx: &Context, msg: &Message) -> CommandResult {
+  let input_msg = msg.content.to_string();
+  if input_msg.len() > 9 {
+    let input_data = String::from(&input_msg[10..]);
+    let result = knapsack_run(String::from(input_data));
+    msg.channel_id.say(&ctx.http, &result).await?;
+  } else {
+
+let knapsack_expression = "
+knapsack 알고리즘을 실행합니다.
+데이터 입력 방식
+JSON 형태로 입력합니다.
+capacity -> integer type
+data -> string type
+(data의 value와 weight는 space로 구분, 각 data는 '|' 로 구분)
+ex)
+!knapsack
+```
+{
+  \"capacity\": 5,
+  \"data\": \"3 2 | 4 3 | 5 4 | 6 5\"
+}
+```
+";
+    msg.channel_id.say(&ctx.http, knapsack_expression).await?;
+  }
+  Ok(())
+}
+
+#[group]
+#[commands(knapsack)]
+pub struct Knapsack;

@@ -1,46 +1,22 @@
 use std::env;
 
-use serenity::client::{Client, Context};
-use serenity::model::channel::Message;
-use serenity::framework::standard::{
-    StandardFramework,
-    CommandResult,
-    macros::{
-        command,
-        group
-    }
-};
+use serenity::client::Client;
+use serenity::framework::standard::StandardFramework;
 
+pub mod bot_information;
+pub mod interview_template;
 pub mod random_matching;
-pub mod receive_event;
-pub mod commands;
 pub mod ds;
 pub mod algorithm;
 
-use commands::INFO;
-use receive_event::*;
+// pub mod receive_event;
+// use receive_event::*;
 
-#[command]
-async fn info(ctx: &Context, msg: &Message) -> CommandResult {
-    msg.channel_id.say(&ctx.http, INFO).await?;
-
-    Ok(())
-}
-
-#[command]
-async fn ping(ctx: &Context, msg: &Message) -> CommandResult {
-    msg.channel_id.say(&ctx.http, "test message pong!").await?;
-
-    Ok(())
-}
-
-use random_matching::MATCHING_GROUP;
-use ds::trie::TRIE_GROUP;
-use algorithm::knapsack::KNAPSACK_GROUP;
-
-#[group]
-#[commands(info, ping)]
-struct General;
+use bot_information::BOTINFORMATION_GROUP;
+use interview_template::INTERVIEWTEMPLATE_GROUP;
+use random_matching::matching_algorithm::MATCHING_GROUP;
+use ds::trie::trie::TRIE_GROUP;
+use algorithm::{kmp::kmp::KMP_GROUP, knapsack::knapsack::KNAPSACK_GROUP};
 
 #[tokio::main]
 async fn main() {
@@ -48,13 +24,15 @@ async fn main() {
 
   let framework = StandardFramework::new()
     .configure(|c| c.prefix("!"))
-    .group(&GENERAL_GROUP)
+    .group(&INTERVIEWTEMPLATE_GROUP)
     .group(&MATCHING_GROUP)
+    .group(&BOTINFORMATION_GROUP)
     .group(&TRIE_GROUP)
-    .group(&KNAPSACK_GROUP);
+    .group(&KNAPSACK_GROUP)
+    .group(&KMP_GROUP);
 
   let mut client = Client::builder(token)
-    .event_handler(Handler)
+    // .event_handler(Handler)
     .framework(framework)
     .await
     .expect("Err creating client");
