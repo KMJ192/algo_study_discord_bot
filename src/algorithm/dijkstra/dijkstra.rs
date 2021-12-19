@@ -89,8 +89,8 @@ impl DijkstraClass {
         );
     }
 
-    format!("dijkstra table ```{:?}``` \"{}\"(INT_MAX | Infinity)는 해당 노드까지의 경로를 찾을 수 없는 결과입니다.)\nresult ```{}```", 
-      self.table, std::i32::MAX, self.table[self.dest as usize]
+    format!("dijkstra table ```{:?}``` \"{}\"(INT_MAX | Infinity)는 해당 노드까지의 경로를 찾을 수 없는 결과입니다.) ```{}에서 {}(으)로 이동하는 최소 비용 = {}```", 
+      self.table, std::i32::MAX, self.start, self.dest, self.table[self.dest as usize]
     )
   }
 }
