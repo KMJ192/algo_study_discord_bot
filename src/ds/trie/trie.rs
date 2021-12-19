@@ -46,28 +46,28 @@ impl TrieDs {
         current.w = word;
     }
   }
-  fn search(&mut self, word: String) -> bool {
-    let mut current = &mut self.root;
-    for c in word.chars(){
-        if let Some(_) = current.n.get(&c){
-            current = TrieDs::moving(current).n.entry(c).or_insert(Node::new());
-        }else{
-            return false;
-        }
-    }
-    current.b
-  }
-  fn starts_with(&mut self, prefix: String) -> bool {
-    let mut current = &mut self.root;
-    for w in prefix.chars(){
-      if let Some(_) = current.n.get(&w){
-        current = TrieDs::moving(current).n.entry(w).or_insert(Node::new());
-      }else{
-        return false;
-      }
-    }
-    true
-  }
+  // fn search(&mut self, word: String) -> bool {
+  //   let mut current = &mut self.root;
+  //   for c in word.chars(){
+  //       if let Some(_) = current.n.get(&c){
+  //           current = TrieDs::moving(current).n.entry(c).or_insert(Node::new());
+  //       }else{
+  //           return false;
+  //       }
+  //   }
+  //   current.b
+  // }
+  // fn starts_with(&mut self, prefix: String) -> bool {
+  //   let mut current = &mut self.root;
+  //   for w in prefix.chars(){
+  //     if let Some(_) = current.n.get(&w){
+  //       current = TrieDs::moving(current).n.entry(w).or_insert(Node::new());
+  //     }else{
+  //       return false;
+  //     }
+  //   }
+  //   true
+  // }
 }
 
 fn build_trie(param: &str) -> String {

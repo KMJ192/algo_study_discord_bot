@@ -16,7 +16,12 @@ use bot_information::BOTINFORMATION_GROUP;
 use interview_template::INTERVIEWTEMPLATE_GROUP;
 use random_matching::matching_algorithm::MATCHING_GROUP;
 use ds::trie::trie::TRIE_GROUP;
-use algorithm::{kmp::kmp::KMP_GROUP, knapsack::knapsack::KNAPSACK_GROUP};
+use algorithm::{
+  kmp::kmp::KMP_GROUP, 
+  knapsack::knapsack::KNAPSACK_GROUP, 
+  dijkstra::dijkstra::DIJKSTRA_GROUP
+};
+
 
 #[tokio::main]
 async fn main() {
@@ -29,7 +34,8 @@ async fn main() {
     .group(&BOTINFORMATION_GROUP)
     .group(&TRIE_GROUP)
     .group(&KNAPSACK_GROUP)
-    .group(&KMP_GROUP);
+    .group(&KMP_GROUP)
+    .group(&DIJKSTRA_GROUP);
 
   let mut client = Client::builder(token)
     // .event_handler(Handler)
