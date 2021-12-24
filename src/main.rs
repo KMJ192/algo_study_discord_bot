@@ -19,7 +19,8 @@ use ds::trie::trie::TRIE_GROUP;
 use algorithm::{
   kmp::kmp::KMP_GROUP, 
   knapsack::knapsack::KNAPSACK_GROUP, 
-  dijkstra::dijkstra::DIJKSTRA_GROUP
+  dijkstra::dijkstra::DIJKSTRA_GROUP,
+  topology_sort::topology_sort::TOPOLOGYSORT_GROUP,
 };
 
 
@@ -35,6 +36,7 @@ async fn main() {
     .group(&TRIE_GROUP)
     .group(&KNAPSACK_GROUP)
     .group(&KMP_GROUP)
+    .group(&TOPOLOGYSORT_GROUP)
     .group(&DIJKSTRA_GROUP);
 
   let mut client = Client::builder(token)
