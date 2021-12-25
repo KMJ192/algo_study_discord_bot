@@ -11,13 +11,13 @@ impl EventHandler for Handler {
   async fn message(&self, ctx: Context, msg: Message) {
     let mut stack: Vec<Message> = vec![];
 
-    if stack.len() > 100 {
-      stack = vec![];
-      let tmp = "코딩야기하세요";
-      if let Err(err) = msg.channel_id.say(&ctx.http, tmp).await {
-        println!("Error sending message: {:?}", err);
-      }
-    }
+    // if stack.len() > 100 {
+    //   stack = vec![];
+    //   let tmp = "코딩야기하세요";
+    //   if let Err(err) = msg.channel_id.say(&ctx.http, tmp).await {
+    //     println!("Error sending message: {:?}", err);
+    //   }
+    // }
   }
 
   async fn thread_member_update(&self, _ctx: Context, _thread_member: ThreadMember) {
