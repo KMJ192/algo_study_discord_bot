@@ -9,9 +9,8 @@ pub struct Handler;
 #[async_trait]
 impl EventHandler for Handler {
   async fn message(&self, ctx: Context, msg: Message) {
-    let mut stack: Vec<Message> = vec![];
-
-    // if stack.len() > 100 {
+    // let mut stack: Vec<Message> = vec![];
+    // if stack.len() > 5 {
     //   stack = vec![];
     //   let tmp = "코딩야기하세요";
     //   if let Err(err) = msg.channel_id.say(&ctx.http, tmp).await {
