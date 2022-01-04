@@ -8,6 +8,7 @@ pub mod interview_template;
 pub mod random_matching;
 pub mod ds;
 pub mod algorithm;
+pub mod system_design;
 pub mod drip;
 
 // pub mod receive_event;
@@ -23,6 +24,11 @@ use algorithm::{
   dijkstra::dijkstra::DIJKSTRA_GROUP,
   topology_sort::topology_sort::TOPOLOGYSORT_GROUP,
 };
+use system_design::{
+  definition::definition::SYSTEMDESIGN_GROUP,
+  cdn::cdn::CDN_GROUP
+};
+
 use drip::dog_drip::DOGDRIP_GROUP;
 
 
@@ -40,6 +46,8 @@ async fn main() {
     .group(&KMP_GROUP)
     .group(&TOPOLOGYSORT_GROUP)
     .group(&DOGDRIP_GROUP)
+    .group(&SYSTEMDESIGN_GROUP)
+    .group(&CDN_GROUP)
     .group(&DIJKSTRA_GROUP);
 
   let mut client = Client::builder(token)
