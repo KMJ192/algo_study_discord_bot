@@ -26,7 +26,12 @@ use algorithm::{
 };
 use system_design::{
   definition::definition::SYSTEMDESIGN_GROUP,
-  cdn::cdn::CDN_GROUP
+  cdn::cdn::CDN_GROUP,
+  network::{
+    tcp_ip_udp::TCPIPUDP_GROUP,
+    http::HTTP_GROUP,
+    type_happen::TYPEHAPPEN_GROUP,
+  },
 };
 
 use drip::dog_drip::DOGDRIP_GROUP;
@@ -38,9 +43,9 @@ async fn main() {
 
   let framework = StandardFramework::new()
     .configure(|c| c.prefix("!"))
+    .group(&BOTINFORMATION_GROUP)
     .group(&INTERVIEWTEMPLATE_GROUP)
     .group(&MATCHING_GROUP)
-    .group(&BOTINFORMATION_GROUP)
     .group(&TRIE_GROUP)
     .group(&KNAPSACK_GROUP)
     .group(&KMP_GROUP)
@@ -48,6 +53,9 @@ async fn main() {
     .group(&DOGDRIP_GROUP)
     .group(&SYSTEMDESIGN_GROUP)
     .group(&CDN_GROUP)
+    .group(&HTTP_GROUP)
+    .group(&TCPIPUDP_GROUP)
+    .group(&TYPEHAPPEN_GROUP)
     .group(&DIJKSTRA_GROUP);
 
   let mut client = Client::builder(token)
