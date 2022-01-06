@@ -10,9 +10,10 @@ pub mod ds;
 pub mod algorithm;
 pub mod system_design;
 pub mod drip;
+pub mod test;
 
-// pub mod receive_event;
-// use receive_event::*;
+pub mod receive_event;
+use receive_event::*;
 
 use bot_information::BOTINFORMATION_GROUP;
 use interview_template::INTERVIEWTEMPLATE_GROUP;
@@ -33,6 +34,8 @@ use system_design::{
     type_happen::TYPEHAPPEN_GROUP,
   },
 };
+
+// use test::file_upload::FILEUPLOADTEST_GROUP;
 
 use drip::dog_drip::DOGDRIP_GROUP;
 
@@ -59,12 +62,10 @@ async fn main() {
     .group(&DIJKSTRA_GROUP);
 
   let mut client = Client::builder(token)
-    // .event_handler(Handler)
+    .event_handler(Handler)
     .framework(framework)
     .await
     .expect("Err creating client");
 
-  if let Err(err) = client.start().await { 
-    println!("{:?}", err);
-  }
+  if let Err(_) = client.start().await { }
 }

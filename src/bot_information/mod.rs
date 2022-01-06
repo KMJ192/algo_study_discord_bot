@@ -25,6 +25,7 @@ let com = "
 !tcp
 !tcp_header
 !ip
+!udp
 !type_happen
 ";
   msg.channel_id.say(&ctx.http, com).await?;

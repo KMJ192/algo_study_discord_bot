@@ -1,3 +1,4 @@
+use rand::Rng;
 use serenity::{
   async_trait,
   model::{channel::Message, gateway::Ready, guild::ThreadMember, event::{ThreadListSyncEvent, ThreadMembersUpdateEvent}},
@@ -9,13 +10,10 @@ pub struct Handler;
 #[async_trait]
 impl EventHandler for Handler {
   async fn message(&self, ctx: Context, msg: Message) {
-    let mut stack: Vec<Message> = vec![];
-    if stack.len() > 5 {
-      stack = vec![];
-      let tmp = "코딩야기하세요";
-      if let Err(err) = msg.channel_id.say(&ctx.http, tmp).await {
-        println!("Error sending message: {:?}", err);
-      }
+    let random_num = rand::thread_rng().gen_range(0..10000);
+    if random_num == 10 {
+      let tmp = "코딩야기하사요";
+      if let Err(_) = msg.channel_id.say(&ctx.http, tmp).await {}
     }
   }
 

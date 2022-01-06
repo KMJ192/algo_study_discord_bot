@@ -22,13 +22,20 @@ cdn에 요청 컨텐츠가 없음
 |        | --->  |      |  --->  |             |
 └────────┘       └──────┘        └─────────────┘
 cdn에 요청 컨텐츠가 있음
-┌────────┐       ┌────────┐       ┌─────────────┐  
-| client | <---  | cdn    |       | main server |
-|        | --->  |(cached)|       |             |
-└────────┘       └────────┘       └─────────────┘
+┌────────┐       ┌────────┐      ┌─────────────┐  
+| client | <---  | cdn    |      | main server |
+|        | --->  |(cached)|      |             |
+└────────┘       └────────┘      └─────────────┘
 ```
 ";
   msg.channel_id.say(&ctx.http, definition).await?;
+  msg.channel_id.send_message(&ctx.http, |m| {
+    m.embed(|e| 
+      e.title("CDN")
+      .image("https://cdn.discordapp.com/attachments/462496789581529100/928641639474405386/unknown.png")
+    )
+  }).await?;
+
   Ok(())
 }
 
