@@ -1,5 +1,5 @@
 [package]
-name = "test_discord_bot"
+name = "algo_study_discord_bot"
 version = "0.1.0"
 edition = "2018"
 
