@@ -22,6 +22,8 @@ Architecture, module, interface, data 등을 정의하는 과정이다.
 - **Security** : 보안
 - ETC...
 
+서비스에 대한 트래픽을 예상하고 비용을 절감할 수 있는 아키텍처, 알고리즘 등을 이용한 시스템을 구축하여
+ROI(투자 대비 효율 -> **★money☆**)를 높이기 위해 시스템 디자인은 아주 중요함
 ";
   msg.channel_id.say(&ctx.http, definition).await?;
   Ok(())

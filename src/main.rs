@@ -32,7 +32,9 @@ use system_design::{
     tcp_ip_udp::TCPIPUDP_GROUP,
     http::HTTP_GROUP,
     type_happen::TYPEHAPPEN_GROUP,
+    osi7layer::OSI7LAYER_GROUP,
   },
+  consider::consider::CONSIDER_GROUP
 };
 
 // use test::file_upload::FILEUPLOADTEST_GROUP;
@@ -59,6 +61,8 @@ async fn main() {
     .group(&HTTP_GROUP)
     .group(&TCPIPUDP_GROUP)
     .group(&TYPEHAPPEN_GROUP)
+    .group(&CONSIDER_GROUP)
+    .group(&OSI7LAYER_GROUP)
     .group(&DIJKSTRA_GROUP);
 
   let mut client = Client::builder(token)

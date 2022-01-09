@@ -5,7 +5,7 @@ use serenity::framework::standard::{CommandResult, macros::{group, command}};
 #[command]
 async fn http(ctx: &Context, msg: &Message) -> CommandResult {
 let info = "
-**HTTP Hyper Text Transfer Protocol**
+**HTTP - Hyper Text Transfer Protocol**
 - HTML, XML등의 문서와 같은 리소스를 가져올 수 있도록 해주는 **규약(protocol)**
 - 웹에서 이루어지는 모든 데이터 교환의 기초
 - stateless 프로토콜 (이전 데이터 요청과 다음 데이터 요청이 서로 관련이 없음)

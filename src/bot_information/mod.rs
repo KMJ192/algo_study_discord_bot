@@ -11,9 +11,10 @@ use serenity::framework::standard::{
 #[command]
 async fn commands(ctx: &Context, msg: &Message) -> CommandResult {
 let com = "
-!info !matching 
-!ft(Feedback Template)
-!it(Interview Template)
+!info
+!matching
+!ft
+!it 
 !kmp_code
 !trie_run
 !trie_code
@@ -27,8 +28,17 @@ let com = "
 !ip
 !udp
 !type_happen
+!osi7layer
+!osi_physical_layer
+!osi_datalink_layer
+!osi_network_layer
+!osi_transport_layer
+!osi_session_layer
+!osi_presentation_layer
+!osi_application_layer
 ";
-  msg.channel_id.say(&ctx.http, com).await?;
+  let com  = str::replace(com, "\n", " ");
+  msg.channel_id.say(&ctx.http, &com).await?;
 
   Ok(())
 }

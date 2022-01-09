@@ -10,9 +10,9 @@ pub struct Handler;
 #[async_trait]
 impl EventHandler for Handler {
   async fn message(&self, ctx: Context, msg: Message) {
-    let random_num = rand::thread_rng().gen_range(0..10000);
-    if random_num == 10 {
-      let tmp = "코딩야기하사요";
+    let random_num = rand::thread_rng().gen_range(0..1000);
+    if random_num == 139 {
+      let tmp = "코딩야기하세요";
       if let Err(_) = msg.channel_id.say(&ctx.http, tmp).await {}
     }
   }
