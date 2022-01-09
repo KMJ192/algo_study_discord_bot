@@ -36,6 +36,12 @@ let com = "
 !osi_session_layer
 !osi_presentation_layer
 !osi_application_layer
+!capacity
+!cpu_memory_time_type
+!dau
+!latency
+!throughput
+!availablity
 ";
   let com  = str::replace(com, "\n", " ");
   msg.channel_id.say(&ctx.http, &com).await?;
