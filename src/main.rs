@@ -3,6 +3,7 @@ use std::env;
 use serenity::client::Client;
 use serenity::framework::standard::StandardFramework;
 
+pub mod db;
 pub mod bot_information;
 pub mod interview_template;
 pub mod random_matching;
@@ -14,7 +15,6 @@ pub mod test;
 
 pub mod receive_event;
 use receive_event::*;
-
 use bot_information::BOTINFORMATION_GROUP;
 use interview_template::INTERVIEWTEMPLATE_GROUP;
 use random_matching::matching_algorithm::MATCHING_GROUP;

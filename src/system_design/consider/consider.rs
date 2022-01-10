@@ -88,11 +88,13 @@ Server-Client방식에서의 총 지연시간
 4. DB -> Server
 5. Server -> Client
 ";
+  use super::super::super::db::firebase::IMAGE_STORAGE;
+  let url = format!("{}/latency.PNG?alt=media", IMAGE_STORAGE);
   msg.channel_id.send_message(&ctx.http, |m| {
     m.embed(|e| 
       e.title("Latency")
         .description(description)
-        .image("https://cdn.discordapp.com/attachments/462496789581529100/929399683032440832/unknown.png")
+        .image(url)
     )
   }).await?;
 

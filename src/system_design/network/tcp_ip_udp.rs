@@ -2,6 +2,8 @@ use serenity::client::Context;
 use serenity::model::channel::Message;
 use serenity::framework::standard::{CommandResult, macros::{group, command}};
 
+use super::super::super::db::firebase::IMAGE_STORAGE;
+
 #[command]
 async fn tcp(ctx: &Context, msg: &Message) -> CommandResult {
 let info = "
@@ -20,20 +22,21 @@ tcp header 정보 -> !tcp_header
 
   msg.channel_id.say(&ctx.http, info).await?;
   let desc = "
-  1. client는 server에 접속을 요청하는 syn 패킷을 전송 후 ack 응답을 기다리는 상태가 됨
-  2. server는 syn요청을 받고 client에 요청을 허락하는 ack와 syn flag가 설정된 패킷을 발송 후 ack응답을 기다리는 상태가 됨
-  3. client는 server에 ack를 보낸 후 연결이 되어(established) 데이터를 송수신할 수 있게 됨
-  (segment라는 패킷으로 통신)
+1. client는 server에 접속을 요청하는 syn 패킷을 전송 후 ack 응답을 기다리는 상태가 됨
+2. server는 syn요청을 받고 client에 요청을 허락하는 ack와 syn flag가 설정된 패킷을 발송 후 ack응답을 기다리는 상태가 됨
+3. client는 server에 ack를 보낸 후 연결이 되어(established) 데이터를 송수신할 수 있게 됨
+(segment라는 패킷으로 통신)
 
-  segment
-  - PDU(Protocol Data Unit)로 그룹화
-  - 전송 할 데이터를 쪼개는데 여기서 header 영역이 있고 tcp header와 data로 이루어진 세그먼트가 있음
+segment
+- PDU(Protocol Data Unit)로 그룹화
+- 전송 할 데이터를 쪼개는데 여기서 header 영역이 있고 tcp header와 data로 이루어진 세그먼트가 있음
   ";
+  let url = format!("{}/3wh.PNG?alt=media", IMAGE_STORAGE);
   msg.channel_id.send_message(&ctx.http, |m| {
     m.embed(|e|
       e.title("3-way handshake")
         .description(desc)
-        .image("https://cdn.discordapp.com/attachments/462496789581529100/928643065005080636/unknown.png")
+        .image(url)
     )
   }).await?;
 
@@ -75,11 +78,12 @@ Word: 하나의 기계어 명령어나 연산을 통해 저장된 장치로부�
 - TCP 기능을 확장할 때 사용하는 필드
 ";
 
+  let url = format!("{}/tcp.PNG?alt=media", IMAGE_STORAGE);
   msg.channel_id.send_message(&ctx.http, |m| {
     m.embed(|e|
       e.title("Tcp header")
         .description(info)
-        .image("https://cdn.discordapp.com/attachments/462496789581529100/928644127824945232/unknown.png")
+        .image(url)
     )
   }).await?;
   Ok(())
@@ -129,11 +133,12 @@ let info = "
 - Header: ip정보가 담김
 - UDP Header: port번호 정보, header와 data를 합한 길이 checksum등을 포함
 ";
+  let url = format!("{}/udp.PNG?alt=media", IMAGE_STORAGE);
   msg.channel_id.send_message(&ctx.http, |m| {
     m.embed(|e|
       e.title("UDP")
         .description(info)
-        .image("https://cdn.discordapp.com/attachments/462496789581529100/928645015167705118/unknown.png")
+        .image(url)
     )
   }).await?;
   Ok(())

@@ -2,6 +2,8 @@ use serenity::client::Context;
 use serenity::model::{channel::Message};
 use serenity::framework::standard::{CommandResult, macros::{group, command}};
 
+use super::super::super::db::firebase::IMAGE_STORAGE;
+
 #[command]
 async fn cdn(ctx: &Context, msg: &Message) -> CommandResult {
 let definition = "
@@ -28,11 +30,13 @@ cdn에 요청 컨텐츠가 있음
 └────────┘       └────────┘      └─────────────┘
 ```
 ";
+
+  let url = format!("{}/cdn.PNG?alt=media", IMAGE_STORAGE);
   msg.channel_id.say(&ctx.http, definition).await?;
   msg.channel_id.send_message(&ctx.http, |m| {
     m.embed(|e| 
       e.title("CDN")
-      .image("https://cdn.discordapp.com/attachments/462496789581529100/928641639474405386/unknown.png")
+      .image(url)
     )
   }).await?;
 
