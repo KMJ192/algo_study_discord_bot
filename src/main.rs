@@ -5,8 +5,6 @@ use serenity::framework::standard::StandardFramework;
 
 pub mod db;
 pub mod bot_information;
-pub mod interview_template;
-pub mod random_matching;
 pub mod ds;
 pub mod algorithm;
 pub mod system_design;
@@ -16,8 +14,6 @@ pub mod test;
 pub mod receive_event;
 use receive_event::*;
 use bot_information::BOTINFORMATION_GROUP;
-use interview_template::INTERVIEWTEMPLATE_GROUP;
-use random_matching::matching_algorithm::MATCHING_GROUP;
 use ds::trie::trie::TRIE_GROUP;
 use algorithm::{
   kmp::kmp::KMP_GROUP, 
@@ -49,8 +45,6 @@ async fn main() {
   let framework = StandardFramework::new()
     .configure(|c| c.prefix("!"))
     .group(&BOTINFORMATION_GROUP)
-    .group(&INTERVIEWTEMPLATE_GROUP)
-    .group(&MATCHING_GROUP)
     .group(&TRIE_GROUP)
     .group(&KNAPSACK_GROUP)
     .group(&KMP_GROUP)
