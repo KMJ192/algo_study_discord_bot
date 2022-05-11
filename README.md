@@ -1,8 +1,8 @@
 # Discord bot
 
-### 알고리즘 스터디 디스코드 채널 봇 프로젝트
+### 스터디 디스코드 채널 봇 프로젝트
 
-DISCORD_TOKEN="token" ./target/release/algo_study_discord_bot
+- Computer science, Algorithm 등
 
 ### dev stack
 
