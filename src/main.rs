@@ -8,7 +8,6 @@ pub mod bot_information;
 pub mod ds;
 pub mod algorithm;
 pub mod system_design;
-pub mod drip;
 pub mod test;
 
 pub mod receive_event;
@@ -35,35 +34,34 @@ use system_design::{
 
 // use test::file_upload::FILEUPLOADTEST_GROUP;
 
-use drip::dog_drip::DOGDRIP_GROUP;
-
 
 #[tokio::main]
 async fn main() {
   let token = env::var("DISCORD_TOKEN").expect("Expected a token in the environment");
 
-  let framework = StandardFramework::new()
-    .configure(|c| c.prefix("!"))
-    .group(&BOTINFORMATION_GROUP)
-    .group(&TRIE_GROUP)
-    .group(&KNAPSACK_GROUP)
-    .group(&KMP_GROUP)
-    .group(&TOPOLOGYSORT_GROUP)
-    .group(&DOGDRIP_GROUP)
-    .group(&SYSTEMDESIGN_GROUP)
-    .group(&CDN_GROUP)
-    .group(&HTTP_GROUP)
-    .group(&TCPIPUDP_GROUP)
-    .group(&TYPEHAPPEN_GROUP)
-    .group(&CONSIDER_GROUP)
-    .group(&OSI7LAYER_GROUP)
-    .group(&DIJKSTRA_GROUP);
+  let framework = 
+    StandardFramework::new()
+      .configure(|c| c.prefix("!"))
+      .group(&BOTINFORMATION_GROUP)
+      .group(&TRIE_GROUP)
+      .group(&KNAPSACK_GROUP)
+      .group(&KMP_GROUP)
+      .group(&TOPOLOGYSORT_GROUP)
+      .group(&SYSTEMDESIGN_GROUP)
+      .group(&CDN_GROUP)
+      .group(&HTTP_GROUP)
+      .group(&TCPIPUDP_GROUP)
+      .group(&TYPEHAPPEN_GROUP)
+      .group(&CONSIDER_GROUP)
+      .group(&OSI7LAYER_GROUP)
+      .group(&DIJKSTRA_GROUP);
 
-  let mut client = Client::builder(token)
-    .event_handler(Handler)
-    .framework(framework)
-    .await
-    .expect("Err creating client");
+  let mut client = 
+    Client::builder(token)
+      .event_handler(Handler)
+      .framework(framework)
+      .await
+      .expect("Err creating client");
 
   if let Err(_) = client.start().await { }
 }
