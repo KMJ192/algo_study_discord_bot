@@ -12,9 +12,6 @@ use serenity::framework::standard::{
 async fn commands(ctx: &Context, msg: &Message) -> CommandResult {
 let com = "
 !info
-!matching
-!ft
-!it 
 !kmp_code
 !trie_run
 !trie_code
@@ -52,11 +49,10 @@ let com = "
 #[command]
 async fn info(ctx: &Context, msg: &Message) -> CommandResult {
 let info = "
-Algorithm study discord bot project v0.0.1
-  - Automation of pair programming matching.
+Computer science, Algorithm study discord bot project v0.0.1
   - Visualization of algorithm run result. (text type display)
-  - Provision algorithm code / data structure code.
-  - Provision sandard library method, how to use.
+  - Algorithm code / data structure code.
+  - Sandard library method, how to use.
 
 input command => !commands
 
